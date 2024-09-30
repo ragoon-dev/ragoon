@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "ragoon"
+version = "0.1.0"
+description = ""
+authors = ["Gregor Karetka <gkaretka@cisco.com>"]
+readme = "README.md"
+packages = [{ include = "ragoon" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+datasets = "^2.21.0"
+pyyaml = "^6.0.2"
+chromadb = "^0.5.5"
+flashrank = "^0.2.9"
+jinja2 = "^3.1.4"
+openai = "^1.42.0"
+litellm = "^1.44.14"
+python-dotenv = "^0.19.2"
+sentence-transformers = "^3.1.1"
+typer = "^0.12.5"
+accelerate = "^0.34.2"
+protobuf = "<3.20"
+tqdm = "^4.66.5"
+
+[tool.poetry.scripts]
+ragoon = "main:app"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

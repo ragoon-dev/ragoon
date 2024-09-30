@@ -1,0 +1,30 @@
+name: "Dataset Card for DIALOGSum Corpus"
+training_data:
+  dataset: "knkarthick/dialogsum"
+  input_feature: "dialogue"
+  label_feature: "summary"
+  split_name: "train"
+  textual_labels: []
+validation_data:
+  input_feature: "dialogue"
+  split_name: "validation"
+results:
+  output_filename: "example_dialogsum_results"
+embed:
+  k: 10
+  training_size_limit: 10
+rerank:
+  k: 3
+llm:
+  model: "azure/gpt-4o"
+  sprompt: |
+    You are a famouse director who writes plays (mainly dialogues).
+    Sometimes when you see a good dialogue you try to create summary
+    of it and give it a very short label (eg. medical checkup, birthday)
+    so you can more easily navigate these dialogues in you dialogue catalog.
+
+    Here are few examples of dialogues and their summary from the past:  
+    {{ examples }}
+  uprompt: |
+    Please provide a summary and very short label for the following dialogue:
+    {{ text }}

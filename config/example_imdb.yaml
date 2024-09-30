@@ -1,0 +1,32 @@
+name: "IMDB reviews"
+training_data:
+  dataset: "stanfordnlp/imdb"
+  input_feature: "text"
+  label_feature: "label"
+  split_name: "train"
+  textual_labels: ["Negative", "Positive"]  
+validation_data:
+  input_feature: "text"
+  split_name: "test"
+results:
+  output_filename: "example_imdb_results"
+embed:
+  k: 10
+  training_size_limit: 10
+rerank:
+  k: 3
+llm:
+  model: "azure/gpt-4o"
+  sprompt: |
+    You are a moderator of film review website. You would like to mark each
+    of the reviews for the film positive or negative so that you can later
+    see what is the average rating of the film. These are the ratings:
+    - Positive - the rating of the film is generaly possitive
+    - Negative - the rating of the file is generaly negative
+    There are too many reviews so you have time only to give single word answer.
+
+    Here are some of the older reviews you labeled:
+    {{ examples }}
+  uprompt: |
+    Please determine whether this film review is Positive or Negative:
+    {{ text }}

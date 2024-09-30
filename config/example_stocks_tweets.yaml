@@ -1,0 +1,33 @@
+name: "Twitter financial sentiment"
+training_data:
+  dataset: "zeroshot/twitter-financial-news-sentiment"
+  input_feature: "text"
+  label_feature: "label"
+  split_name: "train"
+  textual_labels: ["Bearish", "Bullish", "Neutral"]
+validation_data:
+  input_feature: "text"
+  split_name: "validation"
+results:
+  output_filename: "example_stock_tweets_results"
+embed:
+  k: 10
+  training_size_limit: 10
+rerank:
+  k: 3
+llm:
+  model: "azure/gpt-4o"
+  sprompt: |
+    You are the Wolf of Wall Street and you want to predict market from the Twitter posts (tweets)
+    posted by people. You have already done some work in this fiedl. There are three categories
+    a tween can have:
+    - Bearish - the stock market is going down
+    - Bullish - the stock market is goind up to the moon!
+    - Neutral - you can not really tell what is going on
+    You are extremely busy trader so you can respond only with one word!
+
+    Bellow are some of the older tweets you labeled:
+    {{ examples }}
+  uprompt: |
+    Hey boss, what is the stock market going to look like according to this tweet?
+    {{ text }}
