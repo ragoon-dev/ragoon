@@ -1,7 +1,7 @@
 format:
+	isort . && \
 	black ragoon/ && \
-	black main.py && \
-	isort .
+	black main.py
 
 test-fast:
 	mkdir -p test_output && \

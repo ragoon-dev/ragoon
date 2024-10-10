@@ -28,6 +28,7 @@ ragoon = "main:app"
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
 pytest = "^8.3.3"
+isort = "^5.13.2"
 
 [build-system]
 requires = ["poetry-core"]
