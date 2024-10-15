@@ -2,14 +2,18 @@ import logging
 
 import tqdm
 
+from ragoon.executors.cde_embedder import CDEEmbedder
 from ragoon.executors.embedder import BaseEmbedder, ChromaEmbedder
-from ragoon.executors.output_writer import (BaseOutputWriter,
-                                            JSONLOutputWriter,
-                                            SupportedOutputFormats)
-from ragoon.executors.prompt_executor import (BasePromptExecutor,
-                                              LiteLLMPromptExecutor)
-from ragoon.executors.prompt_formatter import (BaseExamplePromptFormatter,
-                                               BasePromptFormatter)
+from ragoon.executors.output_writer import (
+    BaseOutputWriter,
+    JSONLOutputWriter,
+    SupportedOutputFormats,
+)
+from ragoon.executors.prompt_executor import BasePromptExecutor, LiteLLMPromptExecutor
+from ragoon.executors.prompt_formatter import (
+    BaseExamplePromptFormatter,
+    BasePromptFormatter,
+)
 from ragoon.executors.reranker import BaseReranker, FlashRanker
 from ragoon.models.base import Config
 from ragoon.utils.dataset_loader import dataset_load
@@ -57,7 +61,10 @@ class Ragoon:
         # Embedding texts into db
         self.embedder = None
         if embedder is None and self.config.embed is not None:
-            self.embedder = ChromaEmbedder(self.config)
+            if self.config.embed.model == "jxm/cde-small-v1":
+                self.embedder = CDEEmbedder(self.config)
+            else:
+                self.embedder = ChromaEmbedder(self.config)
         else:
             self.embedder = embedder
 
