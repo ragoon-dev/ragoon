@@ -49,6 +49,7 @@ class Embed:
     model: Optional[str] | Optional[list[str]] = (
         "sentence-transformers/all-MiniLM-L6-v2"
     )
+    docs_embedding_count: Optional[int] = 10
 
 
 @dataclass
